@@ -89,14 +89,23 @@ def create_map(lat_mean, lon_mean):
     return mymap
     
 
-def plot_on_map(mymap, points, map_name):
+def plot_on_map(mymap, gpx_dict, map_name):
     '''
     '''
     
-    ## TODO: Add radial buttons for avtivity types
-    ## TODO: add heatmap plot
-    folium.PolyLine(points, color='cyan', weight=4.5, opacity=.5).add_to(mymap)
+    ## loop through activity GPX and add activitiy layers to the map
+    for act in gpx_dict:
+        ## create activity feature
+        fg_act = folium.FeatureGroup(name=act)
+        
+        ##plot feature
+        fg_act.add_child(folium.PolyLine(gpx_dict[act]['points'], color='cyan', weight=4.5, opacity=.5))
+        mymap.add_child(fg_act)
+        
+    folium.LayerControl().add_to(mymap)
+        
     mymap.save(map_name)
+
 
 
 if __name__ == '__main__':
@@ -108,4 +117,5 @@ if __name__ == '__main__':
 
     mymap = create_map(np.mean(gpx_dict['hike']['lat_mean']), np.mean(gpx_dict['hike']['lon_mean']))
     
-    plot_on_map(mymap, gpx_dict['hike']['points'], 'mymap.html')
+    # plot_on_map(mymap, gpx_dict['hike']['points'], 'mymap.html')
+    plot_on_map(mymap, gpx_dict, 'mymap2.html')
