@@ -95,6 +95,8 @@ def plot_points_on_map(mymap, gpx_dict, map_name):
     '''
     '''
     
+    print('Creating Strava Point Map')
+    
     ## loop through activity GPX and add activitiy layers to the map
     for act in gpx_dict:
         ## create activity map
@@ -111,6 +113,8 @@ def plot_points_on_map(mymap, gpx_dict, map_name):
 def plot_heatmap(mymap, gpx_dict, map_name):
     '''
     '''
+    
+    print('Creating Strava Heatmap')
     
     ## loop through activity GPX and add activitiy layers to the map
     for act in gpx_dict:
@@ -138,8 +142,9 @@ if __name__ == '__main__':
     gpx_dict = get_gpx_dirs(gpx_dirs)
 
 
-    mymap = create_map(np.mean(gpx_dict['hike']['lat_mean']), np.mean(gpx_dict['hike']['lon_mean']))
+    mymap1 = create_map(np.mean(gpx_dict['hike']['lat_mean']), np.mean(gpx_dict['hike']['lon_mean']))
+    mymap2 = create_map(np.mean(gpx_dict['hike']['lat_mean']), np.mean(gpx_dict['hike']['lon_mean']))
     
     # plot_on_map(mymap, gpx_dict['hike']['points'], 'mymap.html')
-    plot_points_on_map(mymap, gpx_dict, 'mymap_points.html')
-    plot_heatmap(mymap, gpx_dict, 'mymap_heat.html')
+    plot_points_on_map(mymap1, gpx_dict, 'mymap_points.html')
+    plot_heatmap(mymap2, gpx_dict, 'mymap_heat.html')
